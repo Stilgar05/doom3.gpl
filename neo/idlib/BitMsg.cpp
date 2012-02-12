@@ -946,7 +946,7 @@ void idBitMsgDelta::ReadData( void *data, int length ) const {
 		changed = true;
 	} else {
 		char baseData[MAX_DATA_BUFFER];
-		assert( length < sizeof( baseData ) );
+		assert( length < MAX_DATA_BUFFER );
 		base->ReadData( baseData, length );
 		if ( !readDelta || readDelta->ReadBits( 1 ) == 0 ) {
 			memcpy( data, baseData, length );
