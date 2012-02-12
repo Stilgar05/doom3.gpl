@@ -803,7 +803,7 @@ void idBitMsgDelta::WriteData( const void *data, int length ) {
 		changed = true;
 	} else {
 		byte baseData[MAX_DATA_BUFFER];
-		assert( length < sizeof( baseData ) );
+		assert( length < MAX_DATA_BUFFER );
 		base->ReadData( baseData, length );
 		if ( memcmp( data, baseData, length ) == 0 ) {
 			writeDelta->WriteBits( 0, 1 );
