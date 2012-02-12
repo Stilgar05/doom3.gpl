@@ -1469,12 +1469,12 @@ idStr::snPrintf
 int idStr::snPrintf( char *dest, int size, const char *fmt, ...) {
 	int len;
 	va_list argptr;
-	char buffer[32000];	// big, but small enough to fit in PPC stack
+	char buffer[PRINTF_BUFFER_SIZE];
 
 	va_start( argptr, fmt );
 	len = vsprintf( buffer, fmt, argptr );
 	va_end( argptr );
-	if ( len >= sizeof( buffer ) ) {
+	if ( len >= PRINTF_BUFFER_SIZE ) {
 		idLib::common->Error( "idStr::snPrintf: overflowed buffer" );
 	}
 	if ( len >= size ) {
@@ -1532,12 +1532,12 @@ Sets the value of the string using a printf interface.
 int sprintf( idStr &string, const char *fmt, ... ) {
 	int l;
 	va_list argptr;
-	char buffer[32000];
+	char buffer[PRINTF_BUFFER_SIZE];
 
 	va_start( argptr, fmt );
-	l = idStr::vsnPrintf( buffer, sizeof(buffer)-1, fmt, argptr );
+	l = idStr::vsnPrintf( buffer, PRINTF_BUFFER_SIZE-1, fmt, argptr );
 	va_end( argptr );
-	buffer[sizeof(buffer)-1] = '\0';
+	buffer[PRINTF_BUFFER_SIZE-1] = '\0';
 
 	string = buffer;
 	return l;
@@ -1552,10 +1552,10 @@ Sets the value of the string using a vprintf interface.
 */
 int vsprintf( idStr &string, const char *fmt, va_list argptr ) {
 	int l;
-	char buffer[32000];
+	char buffer[PRINTF_BUFFER_SIZE];
 
-	l = idStr::vsnPrintf( buffer, sizeof(buffer)-1, fmt, argptr );
-	buffer[sizeof(buffer)-1] = '\0';
+	l = idStr::vsnPrintf( buffer, PRINTF_BUFFER_SIZE-1, fmt, argptr );
+	buffer[PRINTF_BUFFER_SIZE-1] = '\0';
 
 	string = buffer;
 	return l;

@@ -85,6 +85,9 @@ class idVec4;
 #define FILE_HASH_SIZE		1024
 #endif
 
+#define PRINTF_BUFFER_SIZE  32000   // big, but small enough to fit in PPC stack
+                                    // allowed values: 1 <= PRINTF_BUFFER_SIZE <= __INT_MAX__
+
 // color escape character
 const int C_COLOR_ESCAPE			= '^';
 const int C_COLOR_DEFAULT			= '0';
